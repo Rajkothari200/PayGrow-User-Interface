@@ -26,6 +26,10 @@
   - Buy/Sell cryptocurrency via form submission
   - Earn **PayCoins** as rewards for wallet top-ups
 
+- 💳 **Profile Management**
+  - View user profile after login
+  - **Change transaction PIN** anytime securely
+
 - 🔁 **UPI Integration**
   - **Request payments via dynamic QR code**
   - Auto-generates UPI link with transaction amount
@@ -55,4 +59,103 @@
   - [SheetDB API](https://sheetdb.io/) – used for submitting Buy/Sell/Chatbot forms
 
 ---
+
+## 🚀 Features
+
+### 🔐 User Authentication
+
+- **Login/Signup system**  
+  ![](images/login1.png)  
+  ![](images/login2.png)
+
+- **OTP verification with account unblock support**  
+  ![](images/otp1.png)  
+  ![](images/otp2.png)
+
+- **Google OAuth2 sign-in**  
+  ![](images/google.png)
+
+---
+
+### 💼 Wallet Management
+
+- **Add, Withdraw, and Schedule Payments**  
+  ![](images/add.png)  
+  ![](images/withdraw.png)  
+  ![](images/schedule1.png)  
+  ![](images/schedule2.png)
+
+- **Set transaction PIN for added security**  
+  *(Feature included in profile section below)*
+
+- **Download transaction history as PDF**  
+  ![](images/transaction.png)
+
+---
+
+### 💳 Profile Management
+
+- **View user profile after login**  
+  ![](images/profile.png)
+
+- **Change transaction PIN anytime securely**  
+  ![](images/changepin.png)
+
+---
+
+### 💸 Crypto Operations
+
+- **Buy/Sell cryptocurrency via form submission**  
+  ![](images/buycrypto.png)  
+  ![](images/buycryptosheets.png)  
+  ![](images/sellcrypto.png)  
+  ![](images/sellcryptosheets.png)
+
+- **Earn PayCoins as rewards for wallet top-ups**  
+  ![](images/paycoins.png)
+
+---
+
+### 🔁 UPI Integration
+
+- **Request payments via dynamic QR code**  
+  ![](images/request.png)
+
+- **Auto-generates UPI link with transaction amount**  
+  ![](images/qrcode.png)
+
+---
+
+### 📈 Market Dashboard
+
+- **Crypto price tracking**  
+  ![](images/home3.png)
+
+- **Basic analytics and trading options**  
+  ![](images/home2.png)
+
+---
+
+### 🤖 Chatbot Assistant
+
+- **Answers crypto-related queries**  
+  ![](images/chatbot.png)
+
+- **Collects user phone numbers if issues are unresolved**  
+  ![](images/chatbot1.png)  
+  ![](images/chatbotphone.png)
+
+---
+
+### 🌐 Fully Responsive Design
+
+- **Clean, animated, and accessible across devices**  
+  ![](images/home1.png)  
+  ![](images/home2.png)  
+  ![](images/home3.png)  
+  ![](images/home4.png)  
+  ![](images/home5.png)  
+  ![](images/home6.png)  
+  ![](images/responsive.png)
+
 
