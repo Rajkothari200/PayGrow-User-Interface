@@ -17,27 +17,29 @@
   - OTP verification with account unblock support
   - Google OAuth2 sign-in
 
-- 🧾 **Transaction Features**
-  - Buy/Sell cryptocurrency forms
-  - Wallet with Add, Withdraw, and Schedule options
-  - Transaction history (with PDF download option)
+- 💼 **Wallet Management**
+  - Add, Withdraw, and **Schedule Payments**
+  - Set transaction PIN for added security
+  - **Download transaction history as PDF**
 
-- 💸 **Dynamic Wallet Functionality**
-  - Rewards via PayCoins system for adding funds
-  - Transaction PIN management
-  - UPI request QR code generator
+- 💸 **Crypto Operations**
+  - Buy/Sell cryptocurrency via form submission
+  - Earn **PayCoins** as rewards for wallet top-ups
 
-- 📈 **Live Market Dashboard**
-  - Real-time crypto prices and trends
-  - Trade button for each asset
+- 🔁 **UPI Integration**
+  - **Request payments via dynamic QR code**
+  - Auto-generates UPI link with transaction amount
 
-- 🤖 **Chatbot Integration**
-  - Handles common queries (crypto prices, FAQs)
-  - Collects phone numbers if unable to solve issues
+- 📈 **Market Dashboard**
+  - Crypto price tracking
+  - Basic analytics and trading options
 
-- 📱 **Fully Responsive UI**
-  - Works across desktop, tablet, and mobile
-  - Smooth transitions, interactive modals, and popups
+- 🤖 **Chatbot Assistant**
+  - Answers crypto-related queries
+  - Collects user phone numbers if issues are unresolved
+
+- 🌐 **Fully Responsive Design**
+  - Clean, animated, and accessible across devices
 
 ---
 
