@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayGrow - Login Page</title>
+
+<!-- 
+      - favicon
+    -->
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="LOGIN.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="forms-container">
+        <div class="signin-signup">
+            <form class="sign-in-form" id="loginForm" autocomplete="off">
+                <h2 class="title">Sign in</h2>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input id="username" type="text" placeholder="Username" required/>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input id="password" type="password" placeholder="Password" minlength="6" maxlength="6" required/>
+                </div>
+                <p style="color: #ffffff; text-decoration: underline;" class="forgot-password-link" onclick="showModal()">Forgot Password?</p>
+                <div class="button-row">
+                    <button type="button" class="btn solid" onclick="handleFormSubmission()">Login</button>
+                </div>
+                
+                <p class="social-text">Or Sign In with social platforms</p>
+                <div class="social-media">
+                    <a onclick="signIn()" class="social-icon">
+                        <i class="fab fa-google"></i>
+                    </a>
+                </div>
+                <!-- Modal -->
+                <div class="modal" id="myModal">
+                    <div class="modal-box">
+                        <span class="close-btn" onclick="closeModal()">×</span>
+                        <div class="input-field">
+                            <i class="fas fa-phone"></i>
+                            <input id="phoneNumber" type="tel" placeholder="Enter Phone Number" minlength="10" maxlength="10" required />
+                        </div>
+                        <div class="input-field">
+                            <i class="fas fa-lock"></i>
+                            <input id="otpInput" type="text" placeholder="Enter OTP" minlength="6" maxlength="6" required disabled />
+                        </div>
+                        <div class="button-row">
+                            <button id="sendButton" type="button" onclick="sendOTP()" class="btn solid">Send OTP</button>
+                            <button type="button" onclick="verifyOTP()" class="btn solid" disabled>Verify OTP</button>
+                        </div>
+                        <p id="status"></p>
+                    </div>
+                </div>
+            </form>
+          
+          <script>
+            function handleFormSubmission() {
+                // Validate required fields
+                var username = document.getElementById('username').value.trim();
+                var password = document.getElementById('password').value.trim();
+        
+                if (username === '' || password === '') {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+        
+                // Perform any additional actions before form submission (if needed)
+                // ...
+        
+                // Programmatically submit the form
+                document.getElementById('loginForm').submit();
+        
+                // Redirect to "HOME_PAGE.html" (optional)
+                window.location.href = "HOME_PAGE.html";
+            }
+        </script>
+
+          <script>
+            //OTP LOGIC
+            var generatedOTP;
+            var remainingAttempts = 3;
+            var blockTime = 30; // in seconds
+            var resendTimeout = null; // Timeout variable for resend countdown
+            var isBlocked = false;
+          
+            function sendOTP() {
+    var phoneNumber = document.getElementById("phoneNumber").value;
+    var otpInput = document.getElementById("otpInput");
+    var sendButton = document.getElementById("sendButton");
+    var verifyButton = document.querySelector("#myModal .button-row button:nth-child(2)");
+
+    if (!phoneNumber || phoneNumber.length !== 10) {
+        alert("Please enter a valid phone number.");
+        return;
+    }
+
+    // Simulate sending OTP (replace this with actual server-side logic)
+    generatedOTP = Math.floor(100000 + Math.random() * 900000);
+
+    // Copy the OTP to the clipboard
+    copyToClipboard(generatedOTP);
+
+    alert("Simulated OTP sent to " + phoneNumber + ": " + generatedOTP);
+    remainingAttempts = 3; // Reset remaining attempts
+
+    // Set a timeout for the resend button to be enabled after 30 seconds
+    setTimeout(function () {
+        enableSendButton();
+    }, blockTime * 1000);
+
+    // Disable the send button and start the resend countdown
+    disableSendButton();
+    startResendCountdown();
+
+    // Disable the phone number input field and enable the OTP input field
+    document.getElementById("phoneNumber").disabled = true;
+    otpInput.disabled = false;
+
+    // Enable the Verify OTP button
+    sendButton.disabled = true;
+    verifyButton.disabled = false;
+}
+          
+            function verifyOTP() {
+                var enteredOTP = document.getElementById("otpInput").value;
+          
+                if (!isBlocked) {
+                    if (remainingAttempts > 0) {
+                        if (enteredOTP.length === 6 && !isNaN(enteredOTP)) {
+                            if (enteredOTP === generatedOTP.toString()) {
+                                document.getElementById("status").innerHTML = "OTP verified successfully!";
+                                // Redirect to another webpage after successful OTP verification
+                                window.location.href = "http://127.0.0.1:5500/HOME_PAGE.html"; // Replace with your desired URL
+                            } else {
+                                remainingAttempts--;
+                                document.getElementById("status").innerHTML = "Incorrect OTP. Remaining attempts: " + remainingAttempts;
+                            }
+                        } else {
+                            document.getElementById("status").innerHTML = "Please enter a valid 6-digit OTP.";
+                        }
+                    } else {
+                        isBlocked = true;
+                        document.getElementById("status").innerHTML = "Account blocked. Please try again after " + blockTime + " seconds.";
+                        setTimeout(function () {
+                            isBlocked = false;
+                            document.getElementById("status").innerHTML = "Account unblocked. You can try again.";
+                        }, blockTime * 1000);
+                    }
+                } else {
+                    document.getElementById("status").innerHTML = "Account is blocked. Please try again later.";
+                }
+            }
+          
+            function startResendCountdown() {
+                var sendButton = document.getElementById("sendButton");
+                var secondsLeft = blockTime;
+          
+                resendTimeout = setInterval(function () {
+                    secondsLeft--;
+          
+                    if (secondsLeft > 0) {
+                        sendButton.innerText = "Resend OTP in " + secondsLeft + "s";
+                    } else {
+                        clearInterval(resendTimeout);
+                        sendButton.innerText = "Resend OTP";
+                        enableSendButton();
+                    }
+                }, 1000);
+            }
+          
+            function enableSendButton() {
+                var sendButton = document.getElementById("sendButton");
+                sendButton.disabled = false;
+            }
+          
+            function disableSendButton() {
+                var sendButton = document.getElementById("sendButton");
+                sendButton.disabled = true;
+            }
+          
+            function copyToClipboard(text) {
+                var tempInput = document.createElement("input");
+                tempInput.value = text;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+            }
+          
+            // Add event listener for Enter key on OTP input field
+            document.getElementById("otpInput").addEventListener("keydown", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    verifyOTP();
+                }
+            });
+          
+            function showModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "flex";
+            }
+        
+            function closeModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "none";
+            }
+            
+        </script>
+        
+        <form class="sign-up-form" id="loginForm1" autocomplete="off">
+          <h2 class="title">Sign up</h2>
+          <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input id="username1" type="text" placeholder="Username" required/>
+          </div>
+          <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input id="password1" type="password" placeholder="Password" minlength="6" maxlength="6" required/>
+          </div>
+          <div class="input-field">
+              <i class="fas fa-phone"></i>
+              <input id="phoneNumber1" type="tel" placeholder="Enter Phone Number" minlength="10" maxlength="10" required />
+          </div>
+          <div class="input-field">
+              <i class="fas fa-key"></i>
+              <input id="otpInput1" type="text" placeholder="Enter OTP" minlength="6" maxlength="6" required />
+          </div>
+          <div class="button-row">
+              <button id="sendButton1" type="button" onclick="sendOTP1()" class="btn solid">Send OTP</button>
+              <button type="button" onclick="verifyOTP1()" class="btn solid">Verify OTP</button>
+          </div>
+          <p id="status1"></p>
+          <p class="social-text">Or Sign Up with social platforms</p>
+          <div class="social-media">
+              <a onclick="signIn()" href="#" class="social-icon">
+                  <i class="fab fa-google"></i>
+              </a>
+          </div>
+      </form>
+
+      
+      <script>
+          var generatedOTP;
+          var remainingAttempts = 3;
+          var blockTime = 30; // in seconds
+          var resendTimeout = null; // Timeout variable for resend countdown
+          var isBlocked = false;
+      
+          function sendOTP1() {
+    var phoneNumber = document.getElementById("phoneNumber1").value;
+    var otpInput = document.getElementById("otpInput1");
+    var sendButton = document.getElementById("sendButton1");
+    var verifyButton = document.querySelector("#myModal1 .button-row button:nth-child(2)");
+
+    if (!phoneNumber || phoneNumber.length !== 10) {
+        alert("Please enter a valid phone number.");
+        return;
+    }
+
+    generatedOTP = Math.floor(100000 + Math.random() * 900000);
+    copyToClipboard(generatedOTP);
+    alert("Simulated OTP sent to " + phoneNumber + ": " + generatedOTP);
+    remainingAttempts = 3;
+
+    setTimeout(function () {
+        enableSendButton();
+    }, blockTime * 1000);
+
+    disableSendButton();
+    startResendCountdown();
+
+    document.getElementById("phoneNumber1").disabled = true;
+    otpInput.disabled = false;
+
+    sendButton.disabled = true;
+    verifyButton.disabled = false;
+}
+      
+          function verifyOTP1() {
+              var enteredOTP = document.getElementById("otpInput1").value;
+              var username = document.getElementById("username1").value;
+              var password = document.getElementById("password1").value;
+      
+              if (!isBlocked) {
+                  if (remainingAttempts > 0) {
+                      if (enteredOTP.length === 6 && !isNaN(enteredOTP)) {
+                          if (username !== "" && password !== "") {
+                              if (enteredOTP === generatedOTP.toString()) {
+                                  document.getElementById("status1").innerHTML = "OTP verified successfully!";
+                                  window.location.href = "http://127.0.0.1:5500/HOME_PAGE.html";
+                              } else {
+                                  remainingAttempts--;
+                                  document.getElementById("status1").innerHTML = "Incorrect OTP. Remaining attempts: " + remainingAttempts;
+                              }
+                          } else if (username === "" && password === "") {
+                              document.getElementById("status1").innerHTML = "Please enter username and password.";
+                          } else if (username === "") {
+                              document.getElementById("status1").innerHTML = "Please enter a username.";
+                          } else {
+                              document.getElementById("status1").innerHTML = "Please enter a password.";
+                          }
+                      } else {
+                          document.getElementById("status1").innerHTML = "Please enter a valid 6-digit OTP.";
+                      }
+                  } else {
+                      isBlocked = true;
+                      document.getElementById("status1").innerHTML = "Account blocked. Please try again after " + blockTime + " seconds.";
+                      setTimeout(function () {
+                          isBlocked = false;
+                          document.getElementById("status1").innerHTML = "Account unblocked. You can try again.";
+                      }, blockTime * 1000);
+                  }
+              } else {
+                  document.getElementById("status1").innerHTML = "Account is blocked. Please try again later.";
+              }
+          }
+      
+          function startResendCountdown() {
+              var sendButton = document.getElementById("sendButton1");
+              var secondsLeft = blockTime;
+      
+              resendTimeout = setInterval(function () {
+                  secondsLeft--;
+      
+                  if (secondsLeft > 0) {
+                      sendButton.innerText = "Resend OTP in " + secondsLeft + "s";
+                  } else {
+                      clearInterval(resendTimeout);
+                      sendButton.innerText = "Resend OTP";
+                      enableSendButton();
+                  }
+              }, 1000);
+          }
+      
+          function enableSendButton() {
+              var sendButton = document.getElementById("sendButton1");
+              sendButton.disabled = false;
+          }
+      
+          function disableSendButton() {
+              var sendButton = document.getElementById("sendButton1");
+              sendButton.disabled = true;
+          }
+      
+          function copyToClipboard(text) {
+              var tempInput = document.createElement("input");
+              tempInput.value = text;
+              document.body.appendChild(tempInput);
+              tempInput.select();
+              document.execCommand("copy");
+              document.body.removeChild(tempInput);
+          }
+      
+          document.getElementById("otpInput1").addEventListener("keydown", function (event) {
+              if (event.key === "Enter") {
+                  event.preventDefault();
+                  verifyOTP1();
+              }
+          });
+      </script>
+      
+        </div>
+      </div>
+      
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>New Here?</h3>
+            <p>
+              Your money, your way! &nbsp;Unlock hassle-free transactions with our trendy digital wallet – Register in seconds.
+            </p>
+            <button class="btn transparent" id="sign-up-btn">
+              Sign up
+            </button>
+          </div>
+          <img src="SIGNUP.png" class="image" alt="IMAGE" />
+        </div>
+        <div class="panel right-panel">
+          <div class="content">
+            <h3>Hey Pay Growers</h3>
+            <p>
+              Welcome back to your financial hub! &nbsp;Sign in for a personalized experience with our digital wallet.
+            </p>
+            <button class="btn transparent" id="sign-in-btn">
+              Sign in
+            </button>
+          </div>
+          <img src="SIGNIN.png" class="image" alt="IMAGE" />
+        </div>
+      </div>
+    </div>
+    
+    <script src="GOOGLE SIGN IN.js"></script>
+  </body>
+</html>

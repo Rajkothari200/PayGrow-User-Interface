@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayGrow - Home Page</title>
+  
+    <!-- 
+      - favicon
+    -->
+    <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+    
+    <!-- 
+      - QR CODE LIBRARY
+    -->
+
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+
+    <!-- 
+      - custom css link
+    -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+    
+    <!-- 
+      - google font link
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+        <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <!--GOOGLE LOGIN & POPUP WINDOW-->  
+
+        <style>
+          .gmail_container img:hover {
+              transform: scale(1.3); /* Increase the scale factor as needed */
+          }
+      </style>
+
+      <div class="gmail_container">
+        <h6></h6>
+        <a href="#" id="popupTrigger"><img id="googleimage" width="35" height="35" style="border-radius: 50%; transition: transform 0.3s;"></img></a>
+        <h5></h5>
+      </div>
+
+      <div class="overlay" id="overlay"></div>
+
+      <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close" id="close">&times;</span>
+            <center><h1 style="font-family: 'Montserrat', sans-serif; color:#ffffff;">Profile</h1>
+            <span style="font-family: 'Montserrat', sans-serif; color:#ffffff;font-size:25px;">Name: </span><span style="font-family: 'Montserrat', sans-serif;color:#ffffff; font-size:25px;" id="googlename"></span>
+            <br><br><button id="logoutBtn" onclick="logout()">Logout</button>
+            <br><br><button id="transactionpin">Change Transaction Pin</button></center>
+        </div>
+      </div>
+    
+      <a href="#paygrow" class="logo">
+        <img src="./assets/images/logo.svg" width="32" height="32" alt="PayGrow logo">
+        PayGrow
+      </a>
+
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <a href="#" class="navbar-link" data-nav-link>Homepage</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#" class="navbar-link" id="popupTrigger2" data-nav-link>Buy Crypto</a>
+          </li>
+
+          <div class="overlay" id="overlay2"></div>
+
+          <div class="popup1" id="popup2">
+            <div class="popup-content">
+                <form name="buycryp" action="https://sheetdb.io/api/v1/3aq19lj0a17nt" method="post" id="buycryp">
+                    <span class="close" id="close2">&times;</span>
+                    <center>
+                      <div class="form-group"><h1 style="font-family: 'Montserrat', sans-serif; color:#ffffff;">Amount: <span id="amount2">0</span>rs</h1></div>
+                      <div class="form-group"><h1 style="font-size: 22px; font-family: 'Montserrat', sans-serif; color:#ffffff;">Converted Paycoins: <span id="convertedPaycoins1">0</span></h1>
+                      <br>
+                      <div class="form-group">
+                          <label style="font-size: 17px; font-family: 'Montserrat', sans-serif; font-weight: 500; color: #ffffff;" for="name">Your Name: </label>
+                          <input name="data[Name]" type="text" class="form-control" id="name" placeholder="Enter your name" required oninput="validateName(this)" style="border-radius: 10px; font-weight: 500; font-size: 15px; color: rgb(56, 116, 255); padding: 5px;">
+                          <div id="name-error" style="color: #ffffff;"></div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: #ffffff;" for="email">Email address: </label>
+                          <input name="data[Email]" type="email" class="form-control" id="email" placeholder="Enter email" required oninput="validateEmail(this)" style="border-radius: 10px; font-weight: 500; font-size: 15px; color: rgb(56, 116, 255);; padding: 5px;">
+                          <div id="email-error" style="color: #ffffff;"></div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: #ffffff;" for="phone">Phone number: </label>
+                          <input name="data[Phone Number]" type="tel" minlength="10" maxlength="10" class="form-control" id="phone" placeholder="Enter phone number" required style="border-radius: 10px; font-weight: 500; font-size: 15px; color: rgb(56, 116, 255); padding: 5px;">
+                      </div>
+
+                      <div class="form-group">
+                        <label style="font-size: 17px; font-family: 'Montserrat', sans-serif; font-weight: 500; color: #ffffff;" for="crypto">Crypto: </label>
+                        <select name="data[Cryptocurrency]" class="form-control" id="crypto" required style="border-radius: 10px; font-weight: 500; font-size: 15px; color: #3874ff; padding: 5px;">
+                            <option value="" disabled selected>Select a cryptocurrency</option>
+                            <option value="Bitcoin">Bitcoin</option>
+                            <option value="Ethereum">Ethereum</option>
+                            <option value="Tether">Tether</option>
+                            <option value="BNB">BNB</option>
+                            <option value="Solana">Solana</option>
+                            <option value="XRP">XRP</option>
+                            <option value="Cardano">Cardano</option>
+                            <option value="Avalanche">Avalanche</option>
+                        </select>
+                        <div id="crypto-error" style="color: #ffffff;"></div>
+                    </div>
+                    
+                      
+                        <br><br>
+                        <button class="submit-button" onclick="submitAnimation(this)" style="font-family: 'Montserrat', sans-serif; font-weight: 600; color:#ff0000; font-size: 18px;" type="submit" class="btn btn-primary btn-block">Submit</button>
+                        <p class="success-message" id="successMessage"></p>
+                    </center>
+                </form>
+            </div>
+        </div>
+        
+        <script>
+            function validateName(input) {
+                var name = input.value.trim();
+                var nameRegex = /^[A-Za-z]+$/;
+                var errorDiv = document.getElementById('name-error');
+                if (name === "") {
+                    errorDiv.textContent = "Name should not be empty";
+                } else if (!nameRegex.test(name)) {
+                    errorDiv.textContent = "Name should contain only alphabets";
+                } else {
+                    errorDiv.textContent = "";
+                }
+            }
+        
+            function validateEmail(input) {
+                var email = input.value.trim();
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                var errorDiv = document.getElementById('email-error');
+                if (email === "") {
+                    errorDiv.textContent = "Email should not be empty";
+                } else if (!emailRegex.test(email)) {
+                    errorDiv.textContent = "Invalid email format";
+                } else if (email.endsWith(".com") && email.indexOf('@') !== -1 && email.indexOf('@') < email.indexOf('.com')) {
+                    errorDiv.textContent = "";
+                } else if (!email.endsWith(".com")) {
+                    errorDiv.textContent = "Email should end with .com";
+                } else {
+                    errorDiv.textContent = "Invalid email format";
+                }
+            }
+        
+            function submitAnimation(button) {
+                button.innerHTML = 'If email is entered correctly, you will receive pop-up message';
+                setTimeout(function() {
+                    button.innerHTML = 'Submit';
+                }, 2000);}
+
+            var form = document.getElementById('buycryp');
+            form.addEventListener("submit", function(e) {
+                e.preventDefault();
+                fetch(form.action, {
+                    method: "POST",
+                    body: new FormData(form),
+                }).then(function(response) {
+                    if (response.ok) {
+                        alert("Buying Request Submitted Successfully");
+                        window.location.href = "HOME_PAGE.html";
+                    } else {
+                        alert("Error: Unable to submit buying request");
+                    }
+                }).catch(function(error) {
+                    console.error('Error:', error);
+                    alert("Error: Unable to submit buying request");
+                });
+            });
+        </script>
+
+
+          <li class="navbar-item">
+            <a href="#market update" class="navbar-link" data-nav-link>Market</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#" class="navbar-link" id="popupTrigger4" data-nav-link>Sell Crypto</a>
+          </li>
+
+          <div class="overlay" id="overlay4"></div>
+
+          <div class="popup1" id="popup4">
+            <div class="popup-content">
+                <form name="sellcryp" action="https://sheetdb.io/api/v1/rhl88vlvdz6s1" method="post" id="sellcryp">
+                    <span class="close" id="close4">&times;</span>
+                    <center>
+                      <div class="form-group"><h1 style="font-family: 'Montserrat', sans-serif; color:#ffffff;">Amount: <span id="amount3">0</span>rs</h1></div>
+                      <div class="form-group"><h1 style="font-size: 22px; font-family: 'Montserrat', sans-serif; color:#ffffff;">Converted Paycoins: <span id="convertedPaycoins2">0</span></h1>
+                      <br>
+                      <div class="form-group">
+                          <label style="font-size: 17px; font-family: 'Montserrat', sans-serif; font-weight: 500; color: #ffffff;" for="name">Your Name: </label>
+                          <input name="data[Name]" type="text" class="form-control" id="name" placeholder="Enter your name" required oninput="validateName1(this)" style="border-radius: 10px; font-weight: 500; font-size: 15px; color: rgb(56, 116, 255); padding: 5px;">
+                          <div id="name-error" style="color: #ffffff;"></div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: #ffffff;" for="email">Email address: </label>
+                          <input name="data[Email]" type="email" class="form-control" id="email" placeholder="Enter email" required oninput="validateEmail1(this)" style="border-radius: 10px; font-weight: 500; font-size: 15px; color: rgb(56, 116, 255);; padding: 5px;">
+                          <div id="email-error" style="color: #ffffff;"></div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label style="font-family: 'Montserrat', sans-serif; font-weight: 500; color: #ffffff;" for="phone">Phone number: </label>
+                          <input name="data[Phone Number]" type="tel" minlength="10" maxlength="10" class="form-control" id="phone" placeholder="Enter phone number" required style="border-radius: 10px; font-weight: 500; font-size: 15px; color: rgb(56, 116, 255); padding: 5px;">
+                      </div>
+
+                        <br>
+                        <button class="submit-button" onclick="submitAnimation1(this)" style="font-family: 'Montserrat', sans-serif; font-weight: 600; color:#ff0000; font-size: 18px;" type="submit" class="btn btn-primary btn-block">Submit</button>
+                        <p class="success-message" id="successMessage"></p>
+                    </center>
+                </form>
+            </div>
+        </div>
+        
+        <script>
+            function validateName1(input) {
+                var name = input.value.trim();
+                var nameRegex = /^[A-Za-z]+$/;
+                var errorDiv = document.getElementById('name-error');
+                if (name === "") {
+                    errorDiv.textContent = "Name should not be empty";
+                } else if (!nameRegex.test(name)) {
+                    errorDiv.textContent = "Name should contain only alphabets";
+                } else {
+                    errorDiv.textContent = "";
+                }
+            }
+        
+            function validateEmail1(input) {
+                var email = input.value.trim();
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                var errorDiv = document.getElementById('email-error');
+                if (email === "") {
+                    errorDiv.textContent = "Email should not be empty";
+                } else if (!emailRegex.test(email)) {
+                    errorDiv.textContent = "Invalid email format";
+                } else if (email.endsWith(".com") && email.indexOf('@') !== -1 && email.indexOf('@') < email.indexOf('.com')) {
+                    errorDiv.textContent = "";
+                } else if (!email.endsWith(".com")) {
+                    errorDiv.textContent = "Email should end with .com";
+                } else {
+                    errorDiv.textContent = "Invalid email format";
+                }
+            }
+        
+            function submitAnimation1(button) {
+                button.innerHTML = 'If email is entered correctly, you will receive pop-up message';
+                setTimeout(function() {
+                    button.innerHTML = 'Submit';
+                }, 2000);}
+
+        
+
+            var form = document.getElementById('sellcryp');
+            form.addEventListener("submit", function(e) {
+                e.preventDefault();
+                fetch(form.action, {
+                    method: "POST",
+                    body: new FormData(form),
+                }).then(function(response) {
+                    if (response.ok) {
+                        alert("Selling Request Submitted Successfully");
+                        window.location.href = "HOME_PAGE.html";
+                    } else {
+                        alert("Error: Unable to submit buying request");
+                    }
+                }).catch(function(error) {
+                    console.error('Error:', error);
+                    alert("Error: Unable to submit buying request");
+                });
+            });
+        </script>
+
+
+          <li class="navbar-item">
+            <a href="#how it works" class="navbar-link" data-nav-link>How It Works</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#contact us" class="navbar-link" data-nav-link>Contact Us</a>
+          </li>
+          
+          
+        
+
+        </ul>
+      </nav>
+
+      <button class="nav-toggle-btn" aria-label="Toggle menu" data-nav-toggler>
+        <span class="line line-1"></span>
+        <span class="line line-2"></span>
+        <span class="line line-3"></span>
+      </button>
+
+      <a class="btn btn-outline" id="generateButton" onclick="generateQRCode()">Request</a>
+
+<script>
+    var transactionPin = "123456"; // Default transaction PIN
+
+    // Function to generate QR code based on input amount
+    function generateQRCode() {
+        var amount = prompt("Enter the amount:");
+        if (amount !== null && amount !== "") {
+            var pin = prompt("Enter 6-digit transaction PIN:");
+            if (pin !== null) {
+                // Check if PIN is exactly 6 digits
+                if (/^\d{6}$/.test(pin)) {
+                    if (pin === transactionPin) {
+                        // UPI ID
+                        var upiId = "8082755536@paytm";
+                        // Constructing the UPI payment URL
+                        var upiUrl = "upi://pay?pa=" + upiId + "&pn=RecipientName&mc=123&tid=123456&tr=12345678&tn=Payment%20Description&am=" + amount + "&cu=INR";
+                        // Generate QR code
+                        var qr = new QRCode(document.createElement("div"), {
+                            text: upiUrl,
+                            width: 256,
+                            height: 256,
+                            colorDark: "#000000",
+                            colorLight: "#ffffff",
+                            correctLevel: QRCode.CorrectLevel.H
+                        });
+
+                        // Open a new window to display the QR code
+                        var qrWindow = window.open("", "_blank", "width=300,height=300");
+                        qrWindow.document.body.appendChild(qr._el);
+
+                        // Close the new window after 15 seconds
+                        setTimeout(function() {
+                            qrWindow.close();
+                            alert("Request Expired, Please try again!!");
+                        }, 15000); // 15 seconds in milliseconds
+                    } else {
+                        alert("Incorrect PIN. Please try again.");
+                    }
+                } else {
+                    alert("Please enter a 6-digit PIN.");
+                }
+            }
+        } else {
+            alert("Please enter a valid amount.");
+        }
+    }
+</script>
+
+
+
+      <a  class="btn btn-outline" id="popupTrigger1">Wallet</a>
+
+      <div class="overlay" id="overlay1"></div>
+
+<div class="popup" id="popup1">
+  <div class="popup-content">
+    <span class="close" id="close1">&times;</span>
+    <center>
+      <h1 style="font-family: 'Montserrat', sans-serif; color:#ffffff;">Amount: <span id="amount1">0</span>rs</h1>
+      <br>
+      <button id="addButton">Add</button>
+      <button id="withdrawButton">Withdraw</button>
+      <br><br>
+      <button id="scheduleButton">Schedule</button> <!-- New button for scheduling -->
+      <br><br>
+      <button id="historyButton">Transaction History</button>
+    </center>
+  </div>
+</div>
+
+
+    
+
+    </div>
+  </header>
+
+<!--CHATBOT-->
+
+<div id="chat-window">
+  <form name="chatbot" id="chatbot" action="https://sheetdb.io/api/v1/ytxcwmqiyfxu2" method="post">
+    <div id="chat-messages">
+      <p>Welcome! How can I assist you today?</p>
+    </div>
+    <div id="phone-input" style="display: none;"> <!-- Input box for phone number -->
+      <input name="data[Phone Number]" type="tel" maxlength="10" minlength="10" id="phone-number" placeholder="Enter your 10-digit phone number..." style="border-radius: 10px; color: rgb(56, 116, 255); padding: 5px;" required>
+      <button type="submit" onclick="sendPhoneNumber()" id="chatsubmit-button">Submit</button>
+    </div>
+    <div id="chatinput-container">
+      <input type="text" id="chatinput-box" placeholder="Type your message..." style="border-radius: 10px; color: rgb(56, 116, 255); padding: 5px;">
+      <button id="chatsend-button" onclick="sendMessage()">Send</button>
+    </div>
+    <br>
+  </form>
+</div>
+
+
+<script>
+// Function to send phone number
+    // CHATBOT
+    var form = document.getElementById('chatbot');
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  fetch(form.action, {
+      method : "POST",
+      body: new FormData(document.getElementById("chatbot")),
+  }).then(response => {
+            alert("Phone Number Submitted Successfully");
+            appendMessage("Thank you for providing your phone number. We'll get in touch with you shortly.", 'bot');
+            awaitingPhoneNumber = false;
+            document.getElementById("phone-input").style.display = "none";
+            document.getElementById("phone-number").value = "";
+        });
+});
+
+
+    // Enable sending message on pressing Enter key
+    document.getElementById("chatinput-box").addEventListener("keyup", function(event) {
+        if (event.key ===  "Enter") {
+            sendMessage();
+        }
+    });
+</script>
+
+
+<div id="chat-icon" onclick="toggleChat()">💬</div>
+
+<script>
+    var chatOpen = false;
+    var awaitingPhoneNumber = false;
+
+    // Function to toggle chat window visibility
+function toggleChat() {
+    var chatWindow = document.getElementById("chat-window");
+    chatWindow.style.display = chatOpen ? "none" : "block";
+    chatOpen = !chatOpen;
+
+    if (chatOpen) {
+        var chatIcon = document.getElementById("chat-icon");
+        chatWindow.style.top = (chatIcon.offsetTop - chatWindow.offsetHeight) + "px"; // Position chat window above the icon
+        chatWindow.style.left = (chatIcon.offsetLeft - chatWindow.offsetWidth + chatIcon.offsetWidth) + "px"; // Position chat window to the left of the icon
+
+        // Focus on the input box when the chat window is displayed
+        document.getElementById("chatinput-box").focus();
+    }
+}
+
+
+    // Function to send user message and receive response
+    function sendMessage() {
+        var userInput = document.getElementById("chatinput-box").value.trim();
+        if (awaitingPhoneNumber) {
+            // If awaiting phone number, don't process user input
+            return;
+        }
+
+        if (userInput === "") return;
+
+        appendMessage(userInput, 'user');
+        
+        // Processing user's input
+        var botResponse;
+        var lowerCaseInput = userInput.toLowerCase(); // Convert user input to lowercase for case-insensitive comparison
+
+        if (lowerCaseInput === "bitcoin price") {
+            botResponse = "Bitcoin price: $63,882.10";
+        } else if (lowerCaseInput === "ethereum price") {
+            botResponse = "Ethereum price: $3,480.04";
+        } else if (lowerCaseInput === "tether price") {
+            botResponse = "Tether price: $1";
+        } else if (lowerCaseInput === "bnb price") {
+            botResponse = "BNB price: $531.11";
+        } else if (lowerCaseInput === "solana price") {
+            botResponse = "Solana price: $185.07";
+        } else if (lowerCaseInput === "xrp price") {
+            botResponse = "XRP price: $0.60";
+        } else if (lowerCaseInput === "cardano price") {
+            botResponse = "Cardano price: $0.61";
+        } else if (lowerCaseInput === "avalanche price") {
+            botResponse = "Avalanche price: $61.77";
+        } else if (lowerCaseInput === "what is paygrow?") {
+            botResponse = "Your gateway to financial empowerment in the digital age. PayGrow is your all-in-one solution for effortlessly managing and growing your cryptocurrency assets, enabling you to thrive in the ever-evolving world of digital finance.";
+        } else if (lowerCaseInput === "today's date") {
+            botResponse = "Today's date is: " + new Date().toLocaleDateString();
+        } else if (lowerCaseInput === "today's day") {
+            botResponse = "Today is: " + new Date().toLocaleDateString('en-US', { weekday: 'long' });
+        } else {
+            botResponse = "Currently, we don't have a solution for your question. Please enter your phone number.";
+            awaitingPhoneNumber = true;
+            document.getElementById("phone-input").style.display = "block";
+}
+
+appendMessage(botResponse, 'bot');
+
+document.getElementById("chatinput-box").value = "";
+
+    }
+
+    // Function to append messages to the chat window
+    function appendMessage(message, sender) {
+        var chatMessages = document.getElementById("chat-messages");
+        var messageElement = document.createElement("p");
+        messageElement.innerText = message;
+        if (sender === 'bot') {
+            messageElement.style.color = 'blue';
+        }
+        chatMessages.appendChild(messageElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    
+</script>
+
+
+
+  <main>
+    <article>
+
+      <!-- 
+        - #HERO
+      -->
+
+      <section class="section hero" aria-label="hero" data-section>
+        <div class="container">
+
+          <div class="hero-content">
+
+            <h1 class="h1 hero-title">Buy & Sell Digital Assets In The PayGrow</h1>
+
+            <p class="hero-text">
+              Coin Crypto is the easiest, safest, and fastest way to buy & sell crypto asset exchange.
+            </p>
+
+            <a href="https://youtu.be/q8bd-hRfQT4?si=dXScowCgsiPs9AN1" class="btn btn-primary" target="blank">Get started now</a>
+
+          </div>
+
+          <figure class="hero-banner">
+            <img src="./assets/images/hero-banner.png" width="570" height="448" alt="hero banner" class="w-100">
+          </figure>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #TREND
+      -->
+
+      <section class="section trend" aria-label="crypto trend" data-section>
+        <div class="container">
+
+          <div class="trend-tab">
+
+            <ul class="tab-nav">
+
+              <li>
+                <button class="tab-btn active">Crypto</button>
+              </li>
+
+              <li>
+                <button class="tab-btn">More</button>
+              </li>
+
+
+            </ul>
+
+            <ul class="tab-content">
+
+              <li>
+                <div class="trend-card">
+
+                  <div class="card-title-wrapper">
+                    <img src="./assets/images/coin-1.svg" width="24" height="24" alt="bitcoin logo">
+
+                    <a href="#" class="card-title">
+                      Bitcoin <span class="span">BTC/USD</span>
+                    </a>
+                  </div>
+
+                  <data class="card-value" value="63,882.10">USD 63,882.10</data>
+
+                  <div class="card-analytics">
+                    <data class="current-price" value="63,377.43">63,377.43</data>
+
+                    <div class="badge red">-0.79%</div>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="trend-card active">
+
+                  <div class="card-title-wrapper">
+                    <img src="./assets/images/coin-2.svg" width="24" height="24" alt="ethereum logo">
+
+                    <a href="#" class="card-title">
+                      Ethereum <span class="span">ETH/USD</span>
+                    </a>
+                  </div>
+
+                  <data class="card-value" value="3480.04">USD 3,480.04</data>
+
+                  <div class="card-analytics">
+                    <data class="current-price" value="3487.18">3,847.18</data>
+
+                    <div class="badge green">+10.55%</div>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="trend-card">
+
+                  <div class="card-title-wrapper">
+                    <img src="./assets/images/coin-3.svg" width="24" height="24" alt="tether logo">
+
+                    <a href="#" class="card-title">
+                      Tether <span class="span">USDT/USD</span>
+                    </a>
+                  </div>
+
+                  <data class="card-value" value="1.00">USD 1.00</data>
+
+                  <div class="card-analytics">
+                    <data class="current-price" value="0.99">0.99</data>
+
+                    <div class="badge red">-0.01%</div>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="trend-card">
+
+                  <div class="card-title-wrapper">
+                    <img src="./assets/images/coin-4.svg" width="24" height="24" alt="bnb logo">
+
+                    <a href="#" class="card-title">
+                      BNB <span class="span">BNB/USD</span>
+                    </a>
+                  </div>
+
+                  <data class="card-value" value="531.11">USD 531.11</data>
+
+                  <div class="card-analytics">
+                    <data class="current-price" value="524.52">524.52</data>
+
+                    <div class="badge red">-1.24%</div>
+                  </div>
+
+                </div>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #MARKET
+      -->
+
+      <section class="section market" id="market update" aria-label="market update" data-section>
+        <div class="container">
+
+          <div class="title-wrapper">
+            <h2 class="h2 section-title">Market Update</h2>
+
+          <a  class="btn-link" id="popupTrigger3">See Your Paycoins</a>
+          </div>
+
+          <div class="overlay" id="overlay3"></div>
+
+          <div class="popup" id="popup3">
+             <div class="popup-content">
+            <span class="close" id="close3">&times;</span>
+            <center><h1 style="font-family: 'Montserrat', sans-serif; color:#ffffff;">Paycoins: <span id="paycoin">0</span></h1>
+            <h1 style="font-family: 'Montserrat', sans-serif; color:#ffffff;">$ 1 = 1000 Paycoins</h1>
+            <h1 style="font-family: 'Montserrat', sans-serif; color:#ffffff;">Converted Paycoins: <span id="convertedPaycoins3">0</span></h1>
+            </div>
+          </div>
+
+
+
+
+          <div class="market-tab">
+
+            <ul class="tab-nav">
+
+              <li>
+                <button class="tab-btn active">View All</button>
+              </li>
+
+              <li>
+                <button class="tab-btn">Categories</button>
+              </li>
+
+            </ul>
+
+            <table class="market-table">
+
+              <thead class="table-head">
+
+                <tr class="table-row table-title">
+
+                  <th class="table-heading"></th>
+
+                  <th class="table-heading" scope="col">#</th>
+
+                  <th class="table-heading" scope="col">Name</th>
+
+                  <th class="table-heading" scope="col">Last Price</th>
+
+                  <th class="table-heading" scope="col">24h %</th>
+
+                  <th class="table-heading" scope="col">Market Cap</th>
+
+                  <th class="table-heading" scope="col">Last 7 Days</th>
+
+                  <th class="table-heading"></th>
+
+                </tr>
+
+              </thead>
+
+              <tbody class="table-body">
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">1</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-1.svg" width="20" height="20" alt="Bitcoin logo" class="img">
+
+                      <h3>
+                        <a href="https://bitcoin.org/en/" target="_blank" class="coin-name">Bitcoin <span class="span">BTC</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$63,882.10</td>
+
+                  <td class="table-data last-update green">+1.45%</td>
+
+                  <td class="table-data market-cap">$1,252,943,604,743</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-1.svg" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline">Trade</button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">2</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-2.svg" width="20" height="20" alt="Ethereum logo" class="img">
+
+                      <h3>
+                        <a href="https://ethereum.org/en/" target="_blank" class="coin-name">Ethereum <span class="span">ETH</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$3,480.04</td>
+
+                  <td class="table-data last-update red">-5.12%</td>
+
+                  <td class="table-data market-cap">$430,790,000,000</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-2.svg" width="100" height="40" alt="loss chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline">Trade</button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">3</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-3.svg" width="20" height="20" alt="Tether logo" class="img">
+
+                      <h3>
+                        <a href="https://tether.to/en/" target="_blank" class="coin-name">Tether <span class="span">USDT/USD</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$1</td>
+
+                  <td class="table-data last-update green">+1.45%</td>
+
+                  <td class="table-data market-cap">$103,970,000,000</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-1.svg" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline">Trade</button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">4</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-4.svg" width="20" height="20" alt="BNB logo" class="img">
+
+                      <h3>
+                        <a href="https://www.bnbchain.org/en" target="_blank" class="coin-name">BNB <span class="span">BNB/USD</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$531.11</td>
+
+                  <td class="table-data last-update red">-3.75%</td>
+
+                  <td class="table-data market-cap">$77,510,000,000</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-2.svg" width="100" height="40" alt="loss chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline">Trade</button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">5</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-5.svg" width="20" height="20" alt="Solana logo" class="img">
+
+                      <h3>
+                        <a href="https://solana.com/" target="_blank" class="coin-name">Solana <span class="span">SOL</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$185.07</td>
+
+                  <td class="table-data last-update green">+1.45%</td>
+
+                  <td class="table-data market-cap">$76,291,560,722</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-1.svg" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline">Trade</button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">6</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-6.svg" width="20" height="20" alt="XRP logo" class="img">
+
+                      <h3>
+                        <a href="https://coinmarketcap.com/currencies/xrp/" target="_blank" class="coin-name">XRP <span class="span">XRP</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$0.60</td>
+
+                  <td class="table-data last-update red">-2.22%</td>
+
+                  <td class="table-data market-cap">$31,330,000,000</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-2.svg" width="100" height="40" alt="loss chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline">Trade</button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">7</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-7.svg" width="20" height="20" alt="Cardano logo" class="img">
+
+                      <h3>
+                        <a href="https://cardano.org/" target="_blank" class="coin-name">Cardano <span class="span">ADA</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$0.61</td>
+
+                  <td class="table-data last-update green">+0.8%</td>
+
+                  <td class="table-data market-cap">$20,940,000,000</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-1.svg" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline">Trade</button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">8</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-8.svg" width="20" height="20" alt="Avalanche logo" class="img">
+
+                      <h3>
+                        <a href="https://www.avax.network/" target="_blank" class="coin-name">Avalanche <span class="span">AVAX</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$61.77</td>
+
+                  <td class="table-data last-update green">+1.41%</td>
+
+                  <td class="table-data market-cap">$19,240,000,000</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-1.svg" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline">Trade</button>
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #INSTRUCTION
+      -->
+
+      <section class="section instruction" aria-label="instruction" data-section id="how it works">
+        <div class="container">
+
+          <h2 class="h2 section-title">How It Works</h2>
+
+          <p class="section-text">
+            Discover the simplicity behind navigating our platform - From registration to trading, embark on your crypto journey with ease and confidence.
+          </p>
+
+          <ul class="instruction-list">
+
+            <li>
+              <div class="instruction-card">
+
+                <figure class="card-banner">
+                  <img src="./assets/images/instruction-1.png" width="96" height="96" loading="lazy" alt="Step 1"
+                    class="img">
+                </figure>
+
+                <p class="card-subtitle">Step 1</p>
+
+                <h3 class="h3 card-title">Register</h3>
+
+                <p class="card-text">
+                  Begin your crypto journey effortlessly – Join us today for seamless access to a world of financial possibilities.
+                </p>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="instruction-card">
+
+                <figure class="card-banner">
+                  <img src="./assets/images/instruction-2.png" width="96" height="96" loading="lazy" alt="Step 2"
+                    class="img">
+                </figure>
+
+                <p class="card-subtitle">Step 2</p>
+
+                <h3 class="h3 card-title">Connect Wallet</h3>
+
+                <p class="card-text">
+                  Instantly integrate your digital assets securely – Simplify management and dive into trading with ease.
+                </p>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="instruction-card">
+
+                <figure class="card-banner">
+                  <img src="./assets/images/instruction-3.png" width="96" height="96" loading="lazy" alt="Step 3"
+                    class="img">
+                </figure>
+
+                <p class="card-subtitle">Step 3</p>
+
+                <h3 class="h3 card-title">Start Trading</h3>
+
+                <p class="card-text">
+                  Explore the exciting world of crypto trading confidently – Our intuitive platform and advanced tools ensure seamless execution.
+                </p>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="instruction-card">
+
+                <figure class="card-banner">
+                  <img src="./assets/images/instruction-4.png" width="96" height="96" loading="lazy" alt="Step 4"
+                    class="img">
+                </figure>
+
+                <p class="card-subtitle">Step 4</p>
+
+                <h3 class="h3 card-title">Earn Money</h3>
+
+                <p class="card-text">
+                  Unlock endless earning potential – Explore diverse opportunities and watch your wealth grow effortlessly.
+                </p>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #ABOUT
+      -->
+
+      <section class="section about" aria-label="about" data-section id="paygrow">
+        <div class="container">
+
+          <figure class="about-banner">
+            <img src="./assets/images/about-banner.png" width="748" height="436" loading="lazy" alt="about banner"
+              class="w-100">
+          </figure>
+
+          <div class="about-content">
+
+            <h2 class="h2 section-title">What Is PayGrow</h2>
+
+            <p class="section-text">
+              Your gateway to financial empowerment in the digital age. 
+              PayGrow is your all-in-one solution for effortlessly managing and growing your cryptocurrency assets, 
+              enabling you to thrive in the ever-evolving world of digital finance.
+            </p>
+
+            <ul class="section-list">
+
+              <li class="section-item">
+                <div class="title-wrapper">
+                  <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+                  <h3 class="h3 list-title">View real-time cryptocurrency prices</h3>
+                </div>
+
+                <p class="item-text">
+                  Stay updated with live cryptocurrency prices. 
+                  Gain instant insights into market fluctuations, empowering informed decisions and strategic trading maneuvers.
+                </p>
+              </li>
+
+              <li class="section-item">
+                <div class="title-wrapper">
+                  <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+                  <h3 class="h3 list-title">Buy and sell BTC, ETH, XRP, OKB, Etc...</h3>
+                </div>
+
+                <p class="item-text">
+                  Trade the Top Cryptocurrencies: Buy and sell with ease on our secure platform, 
+                  accessing a wide range of digital assets for seamless transactions.
+                </p>
+              </li>
+
+            </ul>
+
+
+          </div>
+
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer" id="contact us">
+
+    <div class="footer-top" data-section>
+      <div class="container">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">
+            <img src="./assets/images/logo.svg" width="50" height="50" alt="PayGrow logo">
+            PayGrow
+          </a>
+
+          <h2 class="footer-title">Let's Grow Together 📈</h2>
+
+          <a href="tel:+917040520029" class="footer-contact-link">+91 70405 20029</a>
+
+          <a href="mailto:raj.kothari007@nmims.edu.in" class="footer-contact-link">raj.kothari007@nmims.edu.in</a>
+
+          <address class="footer-contact-link">
+            Mumbai, Maharashtra, India
+          </address>
+
+        </div>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Services</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Buy Crypto</a>
+          </li>
+
+          <li>
+            <a href="#market update" class="footer-link">Markets</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Sell Crypto</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Margin Trading</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Referral Program</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">API</a>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Support</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">PayGrow Learn</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Help Center</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">User Feedback</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Submit a request</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">API Documentation</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Trading Rules</a>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">About Us</p>
+          </li>
+
+          <li>
+            <a href="#paygrow" class="footer-link">About PayGrow</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Authenticity Check</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Careers</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Business Contacts</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Blog</a>
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+
+        <p class="copyright">
+          &copy; 2024 PayGrow All Rights Reserved by <a href="#" class="copyright-link">Raj Kothari</a>
+        </p>
+
+        <ul class="social-list">
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+
+  </footer>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js" defer></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+<!--POP UP WINDOW-->
+  <script>
+      document.getElementById('popupTrigger').addEventListener('click', function() {
+    document.getElementById('overlay').style.display = 'block'; // Display overlay
+    document.getElementById('popup').style.display = 'block'; // Display popup
+    document.main.classList.add('blur'); // Add blur effect to body
+});
+
+    document.getElementById('close').addEventListener('click', function() {
+        document.getElementById('overlay').style.display = 'none'; // Hide overlay
+        document.getElementById('popup').style.display = 'none'; // Hide popup
+        document.main.classList.remove('blur'); // Remove blur effect from body
+    });
+
+
+    document.getElementById('popupTrigger1').addEventListener('click', function() {
+    document.getElementById('overlay1').style.display = 'block'; // Display overlay
+    document.getElementById('popup1').style.display = 'block'; // Display popup
+    document.main.classList.add('blur'); // Add blur effect to body
+});
+
+    document.getElementById('close1').addEventListener('click', function() {
+        document.getElementById('overlay1').style.display = 'none'; // Hide overlay
+        document.getElementById('popup1').style.display = 'none'; // Hide popup
+        document.main.classList.remove('blur'); // Remove blur effect from body
+    });
+
+    document.getElementById('popupTrigger2').addEventListener('click', function() {
+    document.getElementById('overlay2').style.display = 'block'; // Display overlay
+    document.getElementById('popup2').style.display = 'block'; // Display popup
+    document.main.classList.add('blur'); // Add blur effect to body
+});
+
+    document.getElementById('close2').addEventListener('click', function() {
+        document.getElementById('overlay2').style.display = 'none'; // Hide overlay
+        document.getElementById('popup2').style.display = 'none'; // Hide popup
+        document.main.classList.remove('blur'); // Remove blur effect from body
+    });
+
+    document.getElementById('popupTrigger3').addEventListener('click', function() {
+    document.getElementById('overlay3').style.display = 'block'; // Display overlay
+    document.getElementById('popup3').style.display = 'block'; // Display popup
+    document.body.classList.add('blur'); // Add blur effect to body
+});
+
+document.getElementById('close3').addEventListener('click', function() {
+    document.getElementById('overlay3').style.display = 'none'; // Hide overlay
+    document.getElementById('popup3').style.display = 'none'; // Hide popup
+    document.body.classList.remove('blur'); // Remove blur effect from body
+});  
+
+document.getElementById('popupTrigger4').addEventListener('click', function() {
+    document.getElementById('overlay4').style.display = 'block'; // Display overlay
+    document.getElementById('popup4').style.display = 'block'; // Display popup
+    document.body.classList.add('blur'); // Add blur effect to body
+});
+
+document.getElementById('close4').addEventListener('click', function() {
+    document.getElementById('overlay4').style.display = 'none'; // Hide overlay
+    document.getElementById('popup4').style.display = 'none'; // Hide popup
+    document.body.classList.remove('blur'); // Remove blur effect from body
+}); 
+
+  </script>
+
+<script>
+  function scrollToTop() {
+      window.scrollTo(0, 0);
+  }
+
+  function openPopup(overlayId, popupId) {
+      document.getElementById(overlayId).style.display = 'block'; // Display overlay
+      document.getElementById(popupId).style.display = 'block'; // Display popup
+      document.body.classList.add('blur'); // Add blur effect to body
+  }
+
+  function closePopup(overlayId, popupId) {
+      document.getElementById(overlayId).style.display = 'none'; // Hide overlay
+      document.getElementById(popupId).style.display = 'none'; // Hide popup
+      document.body.classList.remove('blur'); // Remove blur effect from body
+  }
+
+  document.getElementById('popupTrigger').addEventListener('click', function() {
+      scrollToTop(); // Scroll to the top of the page
+      openPopup('overlay', 'popup'); // Open the popup
+  });
+
+  document.getElementById('close').addEventListener('click', function() {
+      closePopup('overlay', 'popup'); // Close the popup
+  });
+
+  document.getElementById('popupTrigger1').addEventListener('click', function() {
+      scrollToTop(); // Scroll to the top of the page
+      openPopup('overlay1', 'popup1'); // Open the popup
+  });
+
+  document.getElementById('close1').addEventListener('click', function() {
+      closePopup('overlay1', 'popup1'); // Close the popup
+  });
+
+  document.getElementById('popupTrigger2').addEventListener('click', function() {
+      scrollToTop(); // Scroll to the top of the page
+      openPopup('overlay2', 'popup2'); // Open the popup
+  });
+
+  document.getElementById('close2').addEventListener('click', function() {
+      closePopup('overlay2', 'popup2'); // Close the popup
+  });
+
+  document.getElementById('popupTrigger4').addEventListener('click', function() {
+      scrollToTop(); // Scroll to the top of the page
+      openPopup('overlay4', 'popup4'); // Open the popup
+  });
+
+  document.getElementById('close4').addEventListener('click', function() {
+      closePopup('overlay4', 'popup4'); // Close the popup
+  });
+</script>
+
+
+<!--CHANGE TRANSACTION PIN-->
+<!--WALLET ADD AND WITHDRAW-->
+<script>
+  var amountElement1 = document.getElementById("amount1");
+  var amountElement2 = document.getElementById("amount2");
+  var amountElement3 = document.getElementById("amount3");
+  var addButton = document.getElementById("addButton");
+  var withdrawButton = document.getElementById("withdrawButton");
+  var scheduleButton = document.getElementById("scheduleButton"); // New schedule button
+  var historyButton = document.getElementById("historyButton");
+  var transactionPinButton = document.getElementById("transactionpin");
+  var popup1 = document.getElementById("popup1");
+  var popup2 = document.getElementById("popup2");
+  var closeBtn1 = document.getElementById("close1");
+  var closeBtn2 = document.getElementById("close2");
+  var changePinBtn = document.getElementById("changePinBtn");
+  var oldPinInput = document.getElementById("oldPin");
+  var newPinInput = document.getElementById("newPin");
+  
+  // Initial amount
+  var amount = 0;
+  var transactions = [];
+  var pinAttempts = 0;
+  var blocked = false;
+  var transactionPin = "123456"; // Default transaction PIN
+  
+  // Function to update balance and reflect in both popup boxes
+  function updateBalance(change) {
+      amount += change;
+      amountElement1.textContent = amount;
+      amountElement2.textContent = amount;
+      amountElement3.textContent = amount;
+  }
+  
+  // Function to reset PIN attempts
+  function resetPinAttempts() {
+      pinAttempts = 0;
+      blocked = false;
+  }
+  
+  // Function to handle incorrect PIN attempts
+  function handleIncorrectPin() {
+      pinAttempts++;
+      if (pinAttempts >= 3) {
+          blocked = true;
+          alert("Account is currently blocked. Please try again later.");
+          setTimeout(resetPinAttempts, 60000); // Unblock after 1 minute
+      }
+  }
+  
+  function handleTransaction(action) {
+    if (blocked) {
+        alert("Account is currently blocked. Please try again later.");
+        return;
+    }
+    var inputAmount = prompt("Enter amount to " + (action === "add" ? "add:" : "withdraw:"));
+    if (inputAmount !== null && !isNaN(inputAmount)) {
+        var pin = prompt("Enter 6-digit transaction PIN:");
+        if (pin !== null) {
+            // Check if PIN is exactly 6 digits
+            if (/^\d{6}$/.test(pin)) {
+                if (pin === transactionPin) {
+                    resetPinAttempts(); // Reset PIN attempts on successful verification
+                    if (action === "add") {
+                        var addedAmount = parseFloat(inputAmount);
+                        updateBalance(addedAmount);
+                        transactions.push({ balance: amount, type: 'Add', amount: addedAmount, date: new Date() });
+                        // Call updatePaycoins function to calculate and display Paycoins
+                        updatePaycoins(addedAmount);
+                    } else if (action === "withdraw") {
+                        var withdrawnAmount = parseFloat(inputAmount);
+                        if (withdrawnAmount <= amount) {
+                            updateBalance(-withdrawnAmount); // Subtract withdrawn amount from balance
+                            transactions.push({ balance: amount, type: 'Withdraw', amount: withdrawnAmount, date: new Date() });
+                        } else {
+                            alert("Insufficient funds!");
+                        }
+                    }
+                } else {
+                    alert("Incorrect PIN. Please try again.");
+                    handleIncorrectPin();
+                }
+            } else {
+                alert("Please enter a 6-digit PIN.");
+            }
+        }
+    } else {
+        alert("Please enter a valid amount!");
+    }
+}
+
+  
+ // Function to schedule transactions
+function scheduleTransaction() {
+    var amount = prompt("Enter amount:");
+    if (amount !== null && !isNaN(amount)) {
+        var pin = prompt("Enter 6-digit transaction PIN:");
+        if (pin !== null) {
+            // Check if PIN is exactly 6 digits
+            if (/^\d{6}$/.test(pin)) {
+                if (pin === transactionPin) {
+                    resetPinAttempts(); // Reset PIN attempts on successful verification
+                    var date = prompt("Enter date (YYYY-MM-DD):");
+                    var time = prompt("Enter time (HH:MM):");
+                    var dateTime = new Date(date + "T" + time + ":00");
+                    var currentDate = new Date();
+                    if (dateTime > currentDate) {
+                        if (!isNaN(dateTime.getTime())) {
+                            var scheduledTransaction = {
+                                balance: amount,
+                                type: 'Add',
+                                amount: amount,
+                                date: dateTime,
+                                scheduled: true // Set to true for scheduled transactions
+                            };
+                            transactions.push(scheduledTransaction);
+                            alert("Transaction scheduled successfully!");
+                        } else {
+                            alert("Invalid date or time format. Please enter a valid date and time.");
+                        }
+                    } else {
+                        alert("Please enter a future date and time for scheduling.");
+                    }
+                } else {
+                    alert("Incorrect PIN. Please try again.");
+                    handleIncorrectPin();
+                }
+            } else {
+                alert("Please enter a 6-digit PIN.");
+            }
+        }
+    } else {
+        alert("Please enter a valid amount!");
+    }
+}
+
+// Function to generate random points
+function generateRandomPoints(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Function to update converted Paycoins
+function updateConvertedPaycoins(paycoins) {
+    var convertedPaycoins = (paycoins / 1000).toFixed(2); // Convert Paycoins to dollars with 2 decimal places
+    document.getElementById("convertedPaycoins1").textContent = '$' + convertedPaycoins;
+    document.getElementById("convertedPaycoins2").textContent = '$' + convertedPaycoins;
+    document.getElementById("convertedPaycoins3").textContent = '$' + convertedPaycoins;
+}
+
+
+
+// Function to update Paycoins and display in the popup
+function updatePaycoins(amount) {
+    var points;
+    if (amount <= 1000) {
+        points = generateRandomPoints(50, 100);
+    } else if (amount > 1000 && amount <= 10000) {
+        points = generateRandomPoints(100, 500);
+    } else {
+        points = 1000;
+    }
+    // Ensure points are multiples of 5
+    points = Math.ceil(points / 5) * 5;
+    var paycoinElement = document.getElementById("paycoin");
+    var currentPaycoins = parseInt(paycoinElement.textContent);
+    var updatedPaycoins = currentPaycoins + points;
+    paycoinElement.textContent = updatedPaycoins;
+    // Call updateConvertedPaycoins function to update the converted Paycoins
+    updateConvertedPaycoins(updatedPaycoins);
+    // Show the popup
+    overlay3.style.display = "block";
+    popup3.style.display = "block";
+    // Display alert message
+    alert("You received " + points + " Paycoins!");
+}
+
+// Add event listener for add button
+addButton.addEventListener("click", function() {
+    handleTransaction("add");
+});
+
+// Add event listener for withdraw button
+withdrawButton.addEventListener("click", function() {
+    handleTransaction("withdraw");
+});
+
+// Add event listener for schedule button
+scheduleButton.addEventListener("click", function() {
+    scheduleTransaction();
+});
+
+// Add event listener for history button
+document.getElementById("historyButton").addEventListener("click", function() {
+    downloadTransactionHistory();
+});
+
+// Event listener for transaction pin button
+transactionPinButton.addEventListener("click", function() {
+    var oldPin = prompt("Enter old transaction PIN:");
+    if (oldPin === null) return; // User canceled
+    if (oldPin === transactionPin || (oldPin === "" && transactionPin === "123456")) {
+        var newPin = prompt("Enter new transaction PIN (6 digits):");
+        if (newPin === null) return; // User canceled
+        if (newPin.length !== 6 || isNaN(newPin)) {
+            alert("Please enter a valid 6-digit PIN.");
+            return;
+        }
+        transactionPin = newPin;
+        alert("Transaction PIN changed successfully!");
+    } else {
+        alert("Incorrect old PIN. Please try again.");
+    }
+});
+
+// Event listener for close button 1
+closeBtn1.addEventListener("click", function() {
+    popup1.style.display = "none";
+});
+
+// Event listener for close button 2
+closeBtn2.addEventListener("click", function() {
+    popup2.style.display = "none";
+});
+
+// Event listener for change pin button
+changePinBtn.addEventListener("click", function() {
+    var oldPin = oldPinInput.value.trim();
+    var newPin = newPinInput.value.trim();
+    if (oldPin === transactionPin || (oldPin === "" && transactionPin === "123456")) {
+        if (newPin.length !== 6 || isNaN(newPin)) {
+            alert("Please enter a valid 6-digit PIN.");
+            return;
+        }
+        transactionPin = newPin;
+        popup.style.display = "none";
+        alert("Transaction PIN changed successfully!");
+    } else {
+        alert("Incorrect old PIN. Please try again.");
+    }
+});
+
+// Function to handle scheduling transactions
+function handleSchedule() {
+    if (blocked) {
+        alert("Account is currently blocked. Please try again later.");
+        return;
+    }
+    var pin = prompt("Enter 6-digit transaction PIN:");
+    if (pin !== null) {
+        // Check if PIN is exactly 6 digits
+        if (/^\d{6}$/.test(pin)) {
+            if (pin === transactionPin) {
+                resetPinAttempts(); // Reset PIN attempts on successful verification
+                var dateInput = prompt("Enter scheduled date (MM-DD-YYYY):");
+                if (dateInput !== null) {
+                    var timeInput = prompt("Enter scheduled time (HH:MM):");
+                    if (timeInput !== null) {
+                        var amountInput = prompt("Enter amount to schedule:");
+                        if (amountInput !== null && !isNaN(amountInput)) {
+                            var scheduledAmount = parseFloat(amountInput);
+                            // Parse date and time inputs
+                            var [month, day, year] = dateInput.split('-');
+                            var [hours, minutes] = timeInput.split(':');
+                            var scheduledDate = new Date(year, month - 1, day, hours, minutes);
+                            // Verify if the scheduled date is in the future
+                            var currentDate = new Date();
+                            if (scheduledDate > currentDate) {
+                                // Schedule the transaction
+                                transactions.push({ balance: amount, type: 'Add', amount: scheduledAmount, date: scheduledDate, scheduled: true });
+                                alert("Transaction scheduled successfully!");
+                            } else {
+                                alert("Please enter a future date and time for scheduling.");
+                            }
+                        } else {
+                            alert("Please enter a valid amount!");
+                        }
+                    } else {
+                        alert("Scheduled time cannot be empty.");
+                    }
+                } else {
+                    alert("Scheduled date cannot be empty.");
+                }
+            } else {
+                alert("Incorrect PIN. Please try again.");
+                handleIncorrectPin();
+            }
+        } else {
+            alert("Please enter a 6-digit PIN.");
+        }
+    }
+}
+
+// Function to download transaction history
+function downloadTransactionHistory() {
+    if (blocked) {
+        alert("Account is currently blocked. Please try again later.");
+        return;
+    }
+    var pin = prompt("Enter 6-digit transaction PIN:");
+    if (pin !== null) {
+        // Check if PIN is exactly 6 digits
+        if (/^\d{6}$/.test(pin)) {
+            if (pin === transactionPin) {
+                resetPinAttempts(); // Reset PIN attempts on successful verification
+                if (transactions.length > 0) {
+                    // Initialize balance
+                    var currentBalance = 0;
+
+                    // Generate table rows for transaction history
+                    var rows = transactions.map(transaction => {
+                        // Update balance only for non-scheduled transactions
+                        if (!transaction.scheduled) {
+                            if (transaction.type === 'Add') {
+                                currentBalance += transaction.amount;
+                            } else if (transaction.type === 'Withdraw') {
+                                currentBalance -= transaction.amount; // Add negative sign for withdrawal
+                            }
+                        } else {
+                            // For scheduled transactions, update balance only if scheduled date is in the past
+                            if (transaction.date <= new Date()) {
+                                currentBalance = transaction.balance;
+                            }
+                        }
+
+                        // Format amount with "+" or "-" sign based on transaction type
+                        var formattedAmount = (transaction.type === 'Add' ? '+' : '-') + Math.abs(transaction.amount);
+
+                        // Set background color to yellow for scheduled transactions
+                        var rowColor = transaction.scheduled ? 'yellow' : '';
+
+                        return [{ text: parseInt(currentBalance) + ' rs', fillColor: rowColor }, { text: formattedAmount + ' rs', fillColor: rowColor }, { text: transaction.date.toLocaleTimeString(), fillColor: rowColor }, { text: transaction.date.toLocaleDateString(), fillColor: rowColor }];
+                    });
+
+
+                    // Add table headers
+                    var tableContent = [['Balance', 'Add/Withdraw', 'Time', 'Date']].concat(rows);
+
+                    // Define PDF document structure
+                    var docDefinition = {
+                        content: [
+                            { text: 'Transaction History', style: 'header' },
+                            { text: '\n' },
+                            {
+                                style: 'tableExample',
+                                table: {
+                                    headerRows: 1,
+                                    widths: ['auto', 'auto', 'auto', 'auto'],
+                                    body: tableContent
+                                }
+                            }
+                        ],
+                        styles: {
+                            header: {
+                                fontSize: 18,
+                                bold: true,
+                                margin: [0, 0, 0, 10]
+                            },
+                            tableExample: {
+                                margin: [0, 5, 0, 15]
+                            }
+                        }
+                    };
+
+                    // Generate and download PDF
+                    pdfMake.createPdf(docDefinition).download('transaction_history.pdf');
+                } else {
+                    alert("No transactions yet!");
+                }
+            } else {
+                alert("Incorrect PIN. Please try again.");
+                handleIncorrectPin();
+            }
+        } else {
+            alert("Please enter a 6-digit PIN.");
+        }
+    }
+}
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+
+
+
+
+
+
+<!--DONT DELETE GOOGLE LOGIN DATA-->
+    
+    <script>
+
+        let params = {}
+        
+        let regex = /([^&=]+)=([^&]*)/g, m
+        
+        while(m = regex.exec(location.href)){
+            params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+        }
+        
+        if(Object.keys(params).length > 0){
+            localStorage.setItem('authInfo',JSON.stringify(params))
+        }
+        
+        //hide access token
+        
+        window.history.pushState({},document.title,"/" + "HOME_PAGE.html");
+        let info = JSON.parse(localStorage.getItem('authInfo'))
+        console.log(JSON.parse(localStorage.getItem('authInfo')))
+        console.log(info['access_token'])
+        console.log(info['expires_in'])
+        
+        fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
+            headers:{
+                "Authorization":`Bearer ${info['access_token']}`
+            }
+        })
+        
+        .then((data) => data.json())
+        .then((info) => {
+            console.log(info)
+            document.getElementById('googleimage').setAttribute('src', info.picture)
+            document.getElementById('googlename').innerHTML += info.name
+        })
+        
+            function logout() {
+                fetch("https://oauth2.googleapis.com/revoke?token=" + info['access_token'], {
+                    method:'POST',
+                    headers:{
+                        'Content-type' : 'application/x-www-form-urlencoded'
+                    }
+                })
+                .then((data) => {
+                    location.href = "http://127.0.0.1:5500/LOGIN.html"
+                })
+            }
+        </script>
+
+        
+</body>
+</html>
